@@ -1,0 +1,30 @@
+label { 
+    float: left; width: 150px; 
+} 
+
+#container { 
+width: 700px; margin: auto; background-color: beige;
+}
+
+main { 
+padding: 50px; 
+}
+
+.error { 
+     color: red; font-size: 0.8em; margin-left: 150px; 
+    }
+
+#submitBtn {
+     background-color: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer;
+     }
+
+#submitBtn:disabled { 
+background-color: #cccccc; cursor: not-allowed; 
+}
+
+table { 
+    border-collapse: collapse; margin: 20px auto; width: 80%;
+ }
+
+th, td { 
+    border: 1px solid black; padding: 8px; text-align: left; }

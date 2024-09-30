@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Feedback</title>
+    <link rel="stylesheet" type="text/css" href="form.css">
+</head>
+<body>
+
+<div id="container">
+    <main>
+        <h2>Feedback</h2>
+        <h3>Love something? Hate something? Let us know!</h3>
+        <p>Note: Fields marked with an asterisk(*) are mandatory</p>
+
+        <form id="feedbackForm" method="post" novalidate>
+            <label>Title*:</label>
+            <input type="radio" name="title" id="miss" value="Miss" required />Miss
+            <input type="radio" name="title" id="mr" value="Mr" required />Mr.
+            <input type="radio" name="title" id="mrs" value="Mrs" required />Mrs.
+            <br>
+            <span id="titleError" class="error"></span>
+            <br><br>
+
+            <label for="firstName">First Name*:</label>
+            <input type="text" name="firstName" id="firstName" placeholder="First Name" required />
+            <br>
+            <span id="firstNameError" class="error"></span>
+            <br><br>
+
+            <label for="lastName">Last Name*:</label>
+            <input type="text" name="lastName" id="lastName" placeholder="Last Name" required />
+            <br>
+            <span id="lastNameError" class="error"></span>
+            <br><br>
+
+            <label for="emailId">Email Id*:</label>
+            <input type="email" name="emailId" id="emailId" placeholder="yourname@northeastern.edu" required />
+            <br>
+            <span id="emailError" class="error"></span>
+            <br><br>
+
+            <label for="phoneNumber">Phone Number*:</label>
+            <input type="tel" name="phoneNumber" id="phoneNumber" placeholder="xxx-xxx-xxxx" required />
+            <br>
+            <span id="phoneError" class="error"></span>
+            <br><br>
+
+            <label for="zipcode">ZipCode*:</label>
+            <input type="text" name="zipcode" id="zipcode" placeholder="xxxxx" required />
+            <br>
+            <span id="zipcodeError" class="error"></span>
+            <br><br>
+
+            <label>How did you hear*:</label>
+            <input type='checkbox' name="source" value="facebook" /> Facebook
+            <input type='checkbox' name="source" value="google" /> Google
+            <input type='checkbox' name="source" value="yelp" /> Yelp
+            <br>
+            <span id="sourceError" class="error"></span>
+            <br><br>
+
+
+            <label for="streetAddress1">Street Address 1*:</label>
+            <input type="text" name="streetAddress1" id="streetAddress1" placeholder="Street Address 1" required />
+            <br>
+            <span id="streetAddress1Error" class="error"></span>
+            <br><br>
+
+            <label for="streetAddress2">Street Address 2:</label>
+            <input type="text" name="streetAddress2" id="streetAddress2" placeholder="Apartment, suite, etc. (optional)">
+            <br><br>
+
+            <label for="comments">Comments*:</label>
+            <textarea name="text" id="comments" placeholder="Your comments" rows="5" cols="25" required></textarea>
+            <br>
+            <span id="commentsError" class="error"></span>
+            <br><br> 
+
+            <label for="category">Category*:</label>
+            <select id="category" name="category" required onchange="handleCategoryChange()">
+                <option value="">Select a category</option>
+                <option value="product">Product</option>
+                <option value="service">Service</option>
+                <option value="support">Support</option>
+                <option value="billing">Billing</option>
+                <option value="other">Other</option>
+            </select>
+            <br><br>
+            <span id="categoryError" class="error"></span>
+            <br>
+
+            <div id="dynamicCheckboxes"></div>
+
+            <input type="submit" id="submitBtn" value="Submit" disabled>
+            <input type="reset" value="Reset">
+        </form>
+
+        <div id="formDataTable"></div>
+    </main>
+</div>
+
+<script>
+    const form = document.getElementById('feedbackForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const dynamicCheckboxes = document.getElementById('dynamicCheckboxes');
+
+    const fields = {
+        title: document.getElementsByName('title'),
+        firstName: document.getElementById('firstName'),
+        lastName: document.getElementById('lastName'),
+        emailId: document.getElementById('emailId'),
+        phoneNumber: document.getElementById('phoneNumber'),
+        zipcode: document.getElementById('zipcode'),
+        source: document.getElementsByName('source'),
+        comments: document.getElementById('comments'),
+        category: document.getElementById('category'),
+        streetAddress1: document.getElementById('streetAddress1'),  
+        streetAddress2: document.getElementById('streetAddress2')
+    };
+
+    const errors = {
+        titleError: document.getElementById('titleError'),
+        firstNameError: document.getElementById('firstNameError'),
+        lastNameError: document.getElementById('lastNameError'),
+        emailError: document.getElementById('emailError'),
+        phoneError: document.getElementById('phoneError'),
+        zipcodeError: document.getElementById('zipcodeError'),
+        sourceError: document.getElementById('sourceError'),
+        commentsError: document.getElementById('commentsError'),
+        streetAddress1Error: document.getElementById('streetAddress1Error'),  
+        categoryError: document.getElementById('categoryError')
+    };
+
+    const validateField = (field, errorElement, regex, minLength, maxLength, errorMessage) => {
+        const value = field.value.trim();
+        if (value === '') {
+            errorElement.textContent = 'This field is required.';
+            return false;
+        }
+        if (minLength && value.length < minLength) {
+            errorElement.textContent = `Minimum length is ${minLength} characters.`;
+            return false;
+        }
+        if (maxLength && value.length > maxLength) {
+            errorElement.textContent = `Maximum length is ${maxLength} characters.`;
+            return false;
+        }
+        if (regex && !regex.test(value)) {
+            errorElement.textContent = errorMessage;
+            return false;
+        }
+        errorElement.textContent = '';
+        return true;
+    };
+
+    const validateRadio = (radioGroup, errorElement) => {
+        const isChecked = Array.from(radioGroup).some(radio => radio.checked);
+        errorElement.textContent = isChecked ? '' : 'Please select a title.';
+        return isChecked;
+    };
+
+    const validateCheckbox = (checkboxGroup, errorElement) => {
+        const isChecked = Array.from(checkboxGroup).some(checkbox => checkbox.checked);
+        errorElement.textContent = isChecked ? '' : 'Please select at least one option.';
+        return isChecked;
+    };
+
+    const validateForm = () => {
+        const isValidTitle = validateRadio(fields.title, errors.titleError);
+        const isValidFirstName = validateField(fields.firstName, errors.firstNameError, /^[a-zA-Z]+$/, 2, 50, 'Please enter a valid first name.');
+        const isValidLastName = validateField(fields.lastName, errors.lastNameError, /^[a-zA-Z]+$/, 2, 50, 'Please enter a valid last name.');
+        const isValidEmail = validateField(fields.emailId, errors.emailError, /^[^\s@]+@northeastern\.edu$/, null, null, 'Please enter a valid Northeastern email address.');
+        const isValidPhone = validateField(fields.phoneNumber, errors.phoneError, /^\d{3}\d{3}\d{4}$/, null, null, 'Please enter a valid phone number (xxx-xxx-xxxx).');
+        const isValidZipcode = validateField(fields.zipcode, errors.zipcodeError, /^\d{5}$/, null, null, 'Please enter a valid zipcode.');
+        const isValidSource = validateCheckbox(fields.source, errors.sourceError);
+        const isValidComments = validateField(fields.comments, errors.commentsError, null, 10, 200, 'Comments must be between 10 and 200 characters.');
+        const isValidStreetAddress1 = validateField(fields.streetAddress1, errors.streetAddress1Error, null, 2, 100, 'Please enter a valid street address.');
+        const isValidCategory = validateField(fields.category, errors.categoryError, null, null, null, 'Please select a category.');
+
+        submitBtn
+
+        submitBtn.disabled = !(isValidTitle && isValidFirstName && isValidLastName && isValidEmail && isValidPhone &&
+            isValidZipcode && isValidSource && isValidComments && isValidStreetAddress1 && isValidCategory);
+    };
+
+    Object.values(fields).forEach(field => {
+        if (field instanceof NodeList) {
+            field.forEach(item => item.addEventListener('change', validateForm));
+        } else {
+            field.addEventListener('input', validateForm);
+        }
+    });
+
+    const handleCategoryChange = () => {
+        const category = document.getElementById('category').value;
+        dynamicCheckboxes.innerHTML = ''; 
+
+        if (category) {
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.id = 'extraFieldCheckbox';
+            checkbox.addEventListener('change', toggleExtraField);
+
+            const label = document.createElement('label');
+            label.textContent = 'Add more info';
+
+            dynamicCheckboxes.appendChild(checkbox);
+            dynamicCheckboxes.appendChild(label);
+        }
+    };
+
+    const toggleExtraField = function () {
+        const existingField = document.getElementById('extraField');
+        if (this.checked && !existingField) {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.id = 'extraField';
+            input.placeholder = 'Additional Information';
+            input.required = true; 
+            dynamicCheckboxes.appendChild(input);
+        } else if (!this.checked && existingField) {
+            existingField.remove();
+        }
+    };
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!submitBtn.disabled) {
+            const table = document.createElement('table');
+            const headers = ['Title', 'First Name', 'Last Name', 'Email', 'Phone', 'Zipcode', 'Category', 'Source', 'Comments', 'Street Address 1', 'Street Address 2', 'Additional Info'];
+            const values = [
+                document.querySelector('input[name="title"]:checked')?.value,
+                fields.firstName.value,
+                fields.lastName.value,
+                fields.emailId.value,
+                fields.phoneNumber.value,
+                fields.zipcode.value,
+                fields.category.value,
+                Array.from(fields.source).filter(checkbox => checkbox.checked).map(cb => cb.value).join(', '),
+                fields.comments.value,
+                fields.streetAddress1.value, 
+                fields.streetAddress2.value || 'N/A',
+                document.getElementById('extraField')?.value || 'N/A'
+            ];
+
+            const thead = document.createElement('thead');
+            const tr = document.createElement('tr');
+            headers.forEach(header => {
+                const th = document.createElement('th');
+                th.textContent = header;
+                tr.appendChild(th);
+            });
+            thead.appendChild(tr);
+            table.appendChild(thead);
+
+            const tbody = document.createElement('tbody');
+            const trBody = document.createElement('tr');
+            values.forEach(value => {
+                const td = document.createElement('td');
+                td.textContent = value;
+                trBody.appendChild(td);
+            });
+            tbody.appendChild(trBody);
+            table.appendChild(tbody);
+
+            const formDataTable = document.getElementById('formDataTable');
+            formDataTable.innerHTML = ''; 
+            formDataTable.appendChild(table);
+            
+            setTimeout(function() {
+            alert(`Form submitted successfully`);
+        }, 10);
+            form.reset();
+            submitBtn.disabled = true;
+        }
+    });
+
+    form.addEventListener('reset', () => {
+        Object.values(errors).forEach(error => error.textContent = '');
+        submitBtn.disabled = true;
+        dynamicCheckboxes.innerHTML = ''; 
+    });
+</script>
+
+</body>
+</html>
