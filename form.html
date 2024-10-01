@@ -280,6 +280,51 @@
         submitBtn.disabled = true;
         dynamicCheckboxes.innerHTML = ''; 
     });
+
+    const selectElement = document.querySelector('select');
+const checkboxContainer = document.createElement('div');
+document.body.appendChild(checkboxContainer);
+
+selectElement.addEventListener('change', function() {
+  checkboxContainer.innerHTML = '';
+  const selectedOptions = Array.from(this.selectedOptions);
+  
+  selectedOptions.forEach(option => {
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = `checkbox-${option.value}`;
+    
+    const label = document.createElement('label');
+    label.htmlFor = checkbox.id;
+    label.textContent = option.text;
+    
+    checkboxContainer.appendChild(checkbox);
+    checkboxContainer.appendChild(label);
+    
+    checkbox.addEventListener('change', handleCheckboxChange);
+  });
+});
+
+function handleCheckboxChange(event) {
+  const checkbox = event.target;
+  const textFieldId = `textfield-${checkbox.id}`;
+  let textField = document.getElementById(textFieldId);
+  
+  if (checkbox.checked) {
+    if (!textField) {
+      textField = document.createElement('input');
+      textField.type = 'text';
+      textField.id = textFieldId;
+      textField.required = true;
+      textField.placeholder = 'Required field';
+      checkbox.parentNode.insertBefore(textField, checkbox.nextSibling);
+    }
+  } else {
+    if (textField) {
+      textField.remove();
+    }
+  }
+}
 </script>
 
 </body>
