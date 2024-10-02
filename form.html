@@ -24,55 +24,51 @@
             <br><br>
             
             
-            <label for="lastName">Last Name*:</label>
+         <label for="lastName">Last Name*:</label>
             <input type="text" name="lastName" id="lastName" placeholder="Last Name" required/>
             <div id="lastName_error" style="color: red; display: none">Please enter last name.</div>
             <br><br>
-            
-            
-            <label for="emailId">Email Id*:</label>
+         <label for="emailId">Email Id*:</label>
             <input type="text" name="emailId" id="emailId" placeholder="yourname@domain.com" required/>
-            <div id="emailId_error" style="color: red; display: none">Please enter valid email id.</div>
+            <div id="emailId_error" style="color: rgb(239, 18, 18); display: none">Please enter valid email id.</div>
             <br><br>
-            
-            
-            <label for="phoneNumber">Phone Number*:</label>
+        <label for="phoneNumber">Phone Number*:</label>
             <input type="text" name="phoneNumber" id="phoneNumber" placeholder="xxx-xxx-xxxx" required/>
-            <div id="phoneNumber_error" style="color: red; display: none">Please enter valid phone number.</div>
+            <div id="phoneNumber_error" style="color: rgb(239, 18, 18); display: none">Please enter valid phone number.</div>
             <br><br>
             
-            <label for="streetAddress1">Street Address 1*:</label>
+         <label for="streetAddress1">Street Address 1*:</label>
             <input type="text" name="streetAddress1" id="streetAddress1" placeholder="address" required/>
-            <div id="streetAddress1_error" style="color: red; display: none">Please enter Address.</div>
+            <div id="streetAddress1_error" style="color: rgb(239, 18, 18); display: none">Please enter Address.</div>
             <br><br>
             
-            <label for="streetAddress2">Street Address 2:</label>
+         <label for="streetAddress2">Street Address 2:</label>
             <input type="text" name="streetAddress2" id="streetAddress2" placeholder="address"/>
             <br><br>
             
-            <label for="city">City*:</label>
+         <label for="city">City*:</label>
             <input type="text" name="city" id="city" placeholder="city" required/>
-            <div id="city_error" style="color: red; display: none">Please enter city.</div>
+            <div id="city_error" style="color: rgb(239, 18, 18); display: none">Please enter city.</div>
             <br><br>
             
-            <label for="state">State*:</label>
+         <label for="state">State*:</label>
             <input type="text" name="state" id="state" placeholder="state" required/>
-            <div id="state_error" style="color: red; display: none">Please enter state.</div>
+            <div id="state_error" style="color: rgb(239, 18, 18); display: none">Please enter state.</div>
             <br><br>
             
-            <label for="zipcode">ZipCode*:</label>
+         <label for="zipcode">ZipCode*:</label>
             <input type="text" name="zipcode" id="zipcode" placeholder="xxxxxx" required/>
-            <div id="zipcode_error" style="color: red; display: none">Please enter valid zipcode.</div>
+            <div id="zipcode_error" style="color: rgb(239, 18, 18); display: none">Please enter valid zipcode.</div>
             <br><br>
             
-            <label>How did you hear*:</label>
+          <label>How did you hear*:</label>
             <input type='checkbox' name="source" value="facebook"/> Facebook
             <input type='checkbox' name="source" value="google"/> Google
             <input type='checkbox' name="source" value="yelp"/> Yelp
-            <div id="source_error" style="color: red; display: none">Please select how did you hear.</div>
+            <div id="source_error" style="color: rgb(239, 18, 18); display: none">Please select how did you hear.</div>
             <br><br>
     
-            <label for="drinks">Drink*</label>
+        <label for="drinks">Drink*</label>
             <select id="drinks" required name="drinks">
                 <option value="">--Please choose a drink--</option>
                 <option value="Berry">Berry burst</option>
@@ -81,19 +77,20 @@
                 <option value="Cola">Cola</option>
                 <option value="Pepsi">Pepsi</option>
             </select>
-            <div id="drinks_error" style="display:none; color:red">Please select one drink.</div>
+         <div id="drinks_error" style="display:none; color:rgb(239, 18, 18)">Please select one drink.</div>
             <br><br>
-            <label id="drink_name_label" for="drink_name_checkbox" style="display: none">Drink Name</label>
-            <input type="checkbox" id="drink_name_checkbox" style="display: none">
+         <label id="drink_name_label" for="drink_name_checkbox" style="display: none">Drink Name</label>
+         <input type="checkbox" id="drink_name_checkbox" style="display: none">
             <br>
             <br>
-            <label id="drink_custom_label" for="drink_custom_text" style="display: none">Any additional customizations*:</label>
-            <textarea id="drink_custom_text" rows="5" cols="25" placeholder="Your Add ons, write no if none" style="display: none"></textarea>
-            <div id="drink_custom_error" style="display:none; color:red">
-                Please write add ons or no if none.
-            </div>
-            <br><br>
-            <label for="comments">Comments*:</label>
+         <label id="drink_custom_label" for="drink_custom_text" style="display: none">Any additional customizations*:</label>
+        <textarea id="drink_custom_text" rows="5" cols="25" placeholder="Your Add ons, write no if none" style="display: none"></textarea>
+         <div id="drink_custom_error" style="display:none; color:rgb(239, 18, 18)">
+         Please write add ons or no if none.
+         </div>
+         <br><br>
+
+         <label for="comments">Comments*:</label>
             <textarea name="comments" id="comments" placeholder="Your comments" rows="5" cols="25" required></textarea>
             <div id="comments_error" style="color: red; display: none">Please enter your comments.</div>
             <br><br>
@@ -103,8 +100,11 @@
         </form>
     </main>
 </div>
+
 <script>
-    const emailId = /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()[\]\\.,;:\s@']+)*)|('.+'))@northeastern.edu$/;
+    //regular expressions for email,phone number and zipcode
+
+const emailId = /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()[\]\\.,;:\s@']+)*)|('.+'))@northeastern.edu$/;
 const phoneNumber = /\d{3}?\d{3}\d{4}$/;
 const zipcode = /^[0-9]{5}(?:-[0-9]{4})?$/;
 
