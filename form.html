@@ -12,7 +12,7 @@
         <h3>Love something? Hate something? Let us know!</h3>
         Note : Fields marked with an asterisk(*) are mandatory
         <br><br>
-        <form method="post">
+     <form method="post">
             <label>Title*:</label>
             <input type="radio" name="title" id="miss" value="miss" required="required"/>Miss
             <input type="radio" name="title" id="mr" value="mr" required="required"/>Mr.
@@ -24,34 +24,34 @@
             <br><br>
             
             
-         <label for="lastName">Last Name*:</label>
+     <label for="lastName">Last Name*:</label>
             <input type="text" name="lastName" id="lastName" placeholder="Last Name" required/>
             <div id="lastName_error" style="color: red; display: none">Please enter last name.</div>
             <br><br>
-         <label for="emailId">Email Id*:</label>
+     <label for="emailId">Email Id*:</label>
             <input type="text" name="emailId" id="emailId" placeholder="yourname@domain.com" required/>
             <div id="emailId_error" style="color: rgb(239, 18, 18); display: none">Please enter valid email id.</div>
             <br><br>
-        <label for="phoneNumber">Phone Number*:</label>
+     <label for="phoneNumber">Phone Number*:</label>
             <input type="text" name="phoneNumber" id="phoneNumber" placeholder="xxx-xxx-xxxx" required/>
             <div id="phoneNumber_error" style="color: rgb(239, 18, 18); display: none">Please enter valid phone number.</div>
             <br><br>
             
-         <label for="streetAddress1">Street Address 1*:</label>
-            <input type="text" name="streetAddress1" id="streetAddress1" placeholder="address" required/>
-            <div id="streetAddress1_error" style="color: rgb(239, 18, 18); display: none">Please enter Address.</div>
-            <br><br>
+     <label for="streetAddress1">Street Address 1*:</label>
+     <input type="text" name="streetAddress1" id="streetAddress1" placeholder="address" required/>
+      <div id="streetAddress1_error" style="color: rgb(239, 18, 18); display: none">Please enter Address.</div>
+     <br><br>
             
-         <label for="streetAddress2">Street Address 2:</label>
-            <input type="text" name="streetAddress2" id="streetAddress2" placeholder="address"/>
-            <br><br>
+     <label for="streetAddress2">Street Address 2:</label>
+     <input type="text" name="streetAddress2" id="streetAddress2" placeholder="address"/>
+     <br><br>
             
-         <label for="city">City*:</label>
-            <input type="text" name="city" id="city" placeholder="city" required/>
-            <div id="city_error" style="color: rgb(239, 18, 18); display: none">Please enter city.</div>
-            <br><br>
+      <label for="city">City*:</label>
+       <input type="text" name="city" id="city" placeholder="city" required/>
+        <div id="city_error" style="color: rgb(239, 18, 18); display: none">Please enter city.</div>
+         <br><br>
             
-         <label for="state">State*:</label>
+        <label for="state">State*:</label>
             <input type="text" name="state" id="state" placeholder="state" required/>
             <div id="state_error" style="color: rgb(239, 18, 18); display: none">Please enter state.</div>
             <br><br>
@@ -208,7 +208,7 @@ const handleDrinks = (event) => {
     drinksError.style.display = selectedValue.length ? 'none' : 'block';
     drinkCheckbox.style.display = selectedValue.length ? 'block' : 'none';
     drinkNameLabel.style.display = selectedValue.length ? 'block' : 'none';
-    drinkNameLabel.innerHTML = `${selectedValue} Large ($1 Extra)`;
+    drinkNameLabel.innerHTML = `${selectedValue} Large ($2.5 Extra)`;
     isValidForm[event.target.name] = selectedValue.length > 0;
     disableSubmit();
 }
@@ -323,11 +323,7 @@ const submitTable = () => {
                 <td>Comments</td>
                 <td>${commentsElement.value}</td> 
             </tr>      
-            <tr>
-                <td colspan="2">
-                    <button onclick="window.location.reload()"}>Go back to form</button>
-                </td>
-            </tr>  
+            
         </tbody>
     `;
     document.getElementById('container').remove();
