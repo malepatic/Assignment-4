@@ -57,7 +57,7 @@
             <br><br>
             
          <label for="zipcode">ZipCode*:</label>
-            <input type="text" name="zipcode" id="zipcode" placeholder="xxxxxx" required/>
+            <input type="text" name="zipcode" id="zipcode" placeholder="xxxxxx" maxlength="5" required/>
             <div id="zipcode_error" style="color: rgb(239, 18, 18); display: none">Please enter valid zipcode.</div>
             <br><br>
             
@@ -91,8 +91,8 @@
          <br><br>
 
          <label for="comments">Comments*:</label>
-            <textarea name="comments" id="comments" placeholder="Your comments" rows="5" cols="25" required></textarea>
-            <div id="comments_error" style="color: red; display: none">Please enter your comments.</div>
+            <textarea name="comments" id="comments" placeholder="Your comments" rows="5" cols="25" minlength="15"></textarea>
+            <div id="comments_error" style="color: red; display: none">Please enter atleast 10 characters.</div>
             <br><br>
             <input id="submit" type="Submit" disabled>
             <input id="reset" type="Reset">
